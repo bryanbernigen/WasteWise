@@ -9,24 +9,22 @@ const login = async (req, res) => {
     //Login with email and password
     firebaseClient
         .signInWithEmailAndPassword(auth, email, password)
-        .then(async (userCredential) => {
+        .then((userCredential) => {
             //Send token to client
-            if(userCredential.user.emailVerified ){
-                // userCredential.user.getIdToken().then((token) => {
-                //     res.status(200).json({
-                //         status: "success",
-                //         token: token,
-                //     });
-                // });
-                res.status(200).json(userCredential.user);
-            }else{
+            if (userCredential.user.emailVerified) {
+                userCredential.user.getIdToken().then((token) => {
+                    res.status(200).json({
+                        status: "success",
+                        token: token,
+                    });
+                });
+            } else {
                 firebaseClient.signOut(auth);
                 res.status(401).json({
                     status: "error",
                     message: "email not verified",
                 });
             }
-            
         })
         .catch((error) => {
             res.status(400).json({ status: "error", message: error });
