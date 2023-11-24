@@ -22,12 +22,14 @@ const login = async (req, res) => {
                 firebaseClient.signOut(auth);
                 res.status(401).json({
                     status: "error",
-                    message: "email not verified",
+                    error:{
+                        message: "email not verified",
+                    }
                 });
             }
         })
         .catch((error) => {
-            res.status(400).json({ status: "error", message: error });
+            res.status(400).json({ status: "error", error: error });
         });
 };
 
@@ -76,7 +78,7 @@ const register = async (req, res) => {
                 });
         })
         .catch((error) => {
-            res.status(500).json({ status: "error", message: error });
+            res.status(500).json({ status: "error", error: error });
         });
 };
 
