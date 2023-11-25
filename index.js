@@ -20,6 +20,6 @@ app.get('/', (req, res) => {
 app.use('/api', Router);
 
 //To start the server
-app.listen(process.env.PORT||3000, () => {
+app.listen(process.env.PORT||8080, () => {
     console.log("Server is running");
 });
