@@ -9,6 +9,10 @@
         {
             "url": "http://localhost:8080/api",
             "description": "Local server"
+        },
+        {
+            "url": "https://wastewise-6tqdqpkdja-et.a.run.app/api",
+            "description": "Production server in Cloud Run"
         }
     ],
     "tags": [
