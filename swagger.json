@@ -7,7 +7,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3000/api",
+            "url": "http://localhost:8080/api",
             "description": "Local server"
         }
     ],
@@ -159,21 +159,16 @@
                                             "type": "string",
                                             "example": "error"
                                         },
-                                        "message": {
+                                        "error": {
                                             "type": "object",
                                             "properties": {
                                                 "code": {
                                                     "type": "string",
                                                     "example": "auth/email-already-exists"
                                                 },
-                                                "error": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "message": {
-                                                            "type": "string",
-                                                            "example": "The email address is already in use by another account."
-                                                        }
-                                                    }
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "The email address is already in use by another account."
                                                 }
                                             }
                                         }
