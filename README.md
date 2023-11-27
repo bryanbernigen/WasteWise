@@ -7,6 +7,8 @@ Repository for WasteWise, a a Bangkit 2023 Batch 2 Capstone Project
 ```
 FIREBASE_ADMIN_CONFIG=<name of firebase admin config file>
 FIREBASE_CLIENT_CONFIG=<name of firebase client config file>
+FIREBASE_STORAGE_BUCKET=<firebase storage bucket name>
+FIREBASE_API_KEY=<firebase api key>
 ```
 3. Add the firebase admin config file to the Model directory
 4. Add the firebase client config file to the Model directory

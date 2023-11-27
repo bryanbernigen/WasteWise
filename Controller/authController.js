@@ -1,6 +1,8 @@
 const env = require("dotenv").config();
 const { firebaseAdmin } = require("../Model/firebaseConfig");
 const firebaseClient = require("firebase/auth");
+const { decodeToken } = require("./utils");
+const axios = require("axios");
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -16,6 +18,7 @@ const login = async (req, res) => {
                     res.status(200).json({
                         status: "success",
                         token: token,
+                        refreshToken: userCredential.user.refreshToken,
                     });
                 });
             } else {
@@ -82,6 +85,28 @@ const register = async (req, res) => {
         });
 };
 
+const refreshToken = async (req, res) => {
+    axios
+        .post(
+            "https://securetoken.googleapis.com/v1/token?key=" +
+                process.env.FIREBASE_API_KEY,
+            {
+                grant_type: "refresh_token",
+                refresh_token: req.body.refreshToken,
+            }
+        )
+        .then((response) => {
+            res.status(200).json({
+                status: "success",
+                token: response.data.id_token,
+                refreshToken: response.data.refresh_token,
+            });
+        })
+        .catch((error) => {
+            res.status(400).json({ status: "error", error: error.response.data.error });
+        });
+};
+
 const forgotPassword = async (req, res) => {
     const { email } = req.body;
 
@@ -97,5 +122,6 @@ const forgotPassword = async (req, res) => {
 module.exports = {
     login,
     register,
+    refreshToken,
     forgotPassword,
 };

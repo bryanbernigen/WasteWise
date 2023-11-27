@@ -59,6 +59,10 @@
                                         "token": {
                                             "type": "string",
                                             "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        },
+                                        "refreshToken": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
                                         }
                                     }
                                 }
@@ -236,6 +240,83 @@
                 }
             }
         },
+        "/auth/refreshToken":{
+            "post":{
+                "tags": ["Auth"],
+                "summary": "Get Refresh Token",
+                "description": "Get Refresh Token",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "refreshToken": {
+                                        "type": "string",
+                                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "Success",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        },
+                                        "refreshToken": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Bad Request",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "error"
+                                        },
+                                        "error": {
+                                            "type": "object",
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "example": "auth/argument-error"
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Firebase ID token has invalid signature. See https://firebase.google.com/docs/auth/admin/verify-id-tokens for details on how to retrieve an ID token."
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
 
         "/profile": {
             "get": {
@@ -332,10 +413,6 @@
                                     "displayName": {
                                         "type": "string",
                                         "example": "Bryan Bernigen"
-                                    },
-                                    "photoURL": {
-                                        "type": "string",
-                                        "example": "https://www.dicoding.com/img/bangkit/logo.svg"
                                     }
                                 }
                             }

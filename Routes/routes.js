@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/auth/login", authController.login);
 router.post("/auth/register", authController.register);
 router.post("/auth/forgotPassword", authController.forgotPassword);
+router.post("/auth/refreshToken", authController.refreshToken)
 
 //Profile Routes
 router.get("/profile", profileController.getProfile);
