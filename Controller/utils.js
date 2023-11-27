@@ -1,6 +1,14 @@
 const { firebaseAdmin } = require("../Model/firebaseConfig");
 
-async function decodeToken(token) {
+async function decodeToken(req) {
+    let token = null;
+    try {
+        //Get JWT token part from header by removing "Bearer "
+        token = req.headers.authorization.split(" ")[1];
+    } catch (error) {
+        throw error;
+    }
+
     let result = null;
     await firebaseAdmin
         .auth()

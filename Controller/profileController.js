@@ -5,9 +5,8 @@ const { decodeToken } = require("./utils");
 const sharp = require("sharp");
 const fs = require("fs");
 
-const getProfile = async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
-    decodeToken(token)
+const getProfile = async (req, res) => {    
+    decodeToken(req)
         .then((decodedToken) => {
             const uid = decodedToken.uid;
             firebaseAdmin
@@ -33,8 +32,7 @@ const getProfile = async (req, res) => {
 };
 
 const updateProfile = async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
-    decodeToken(token)
+    decodeToken(req)
         .then((decodedToken) => {
             const { displayName} = req.body;
 
@@ -59,8 +57,7 @@ const updateProfile = async (req, res) => {
 };
 
 const uploadProfilePicture = async (req, res) => {
-    const token = req.headers.authorization.split(" ")[1];
-    decodeToken(token)
+    decodeToken(req)
         .then(async (decodedToken) => {
             //Handle the file upload
             //Get The Uploaded File
