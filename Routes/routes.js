@@ -12,5 +12,6 @@ router.post("/auth/forgotPassword", authController.forgotPassword);
 //Profile Routes
 router.get("/profile", profileController.getProfile);
 router.post("/profile/update", profileController.updateProfile);
+router.post("/profile/uploadProfilePicture", profileController.uploadProfilePicture);
 
 module.exports = router;
