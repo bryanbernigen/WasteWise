@@ -89,7 +89,7 @@
                             }
                         }
                     },
-                    "401":{
+                    "401": {
                         "description": "Unauthorized",
                         "content": {
                             "application/json": {
@@ -175,6 +175,50 @@
                                                     "example": "The email address is already in use by another account."
                                                 }
                                             }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/forgotPassword": {
+            "post": {
+                "tags": ["Auth"],
+                "summary": "Forgot Password",
+                "description": "Forgot Password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "c002bsy3201@bangkit.academy"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "password reset email sent"
                                         }
                                     }
                                 }

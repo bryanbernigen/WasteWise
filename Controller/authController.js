@@ -22,9 +22,9 @@ const login = async (req, res) => {
                 firebaseClient.signOut(auth);
                 res.status(401).json({
                     status: "error",
-                    error:{
+                    error: {
                         message: "email not verified",
-                    }
+                    },
                 });
             }
         })
@@ -82,7 +82,20 @@ const register = async (req, res) => {
         });
 };
 
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+
+    const auth = firebaseClient.getAuth();
+    firebaseClient.sendPasswordResetEmail(auth, email).then(() => {
+        res.status(200).json({
+            status: "success",
+            message: "password reset link sent to email",
+        });
+    });
+};
+
 module.exports = {
     login,
     register,
+    forgotPassword,
 };
