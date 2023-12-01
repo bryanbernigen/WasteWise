@@ -21,6 +21,10 @@
             "description": "Authentication routes"
         },
         {
+            "name": "Article",
+            "description": "Article routes"
+        },
+        {
             "name": "Profile",
             "description": "Profile routes"
         },
@@ -240,8 +244,8 @@
                 }
             }
         },
-        "/auth/refreshToken":{
-            "post":{
+        "/auth/refreshToken": {
+            "post": {
                 "tags": ["Auth"],
                 "summary": "Get Refresh Token",
                 "description": "Get Refresh Token",
@@ -260,12 +264,12 @@
                         }
                     }
                 },
-                "responses":{
-                    "200":{
+                "responses": {
+                    "200": {
                         "description": "Success",
-                        "content":{
-                            "application/json":{
-                                "schema":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
                                     "type": "object",
                                     "properties": {
                                         "status": {
@@ -285,11 +289,11 @@
                             }
                         }
                     },
-                    "400":{
+                    "400": {
                         "description": "Bad Request",
-                        "content":{
-                            "application/json":{
-                                "schema":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
                                     "type": "object",
                                     "properties": {
                                         "status": {
@@ -310,6 +314,135 @@
                                             }
                                         }
                                     }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/article/count": {
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get Article Count",
+                "description": "Get Article Count",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/page/{pagenumber}": {
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get All Articles",
+                "description": "Get All Articles",
+                "parameters": [
+                    {
+                        "name": "pagenumber",
+                        "in": "path",
+                        "description": "Page number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/article_example"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorSchema404"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/details/{content_id}": {
+            "get": {
+                "tags": ["Article"],
+                "summary": "Get Article Details",
+                "description": "Get Article Details",
+                "parameters": [
+                    {
+                        "name": "content_id",
+                        "in": "path",
+                        "description": "Article ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "e00aox1bnMRFoJ2y2VRl"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/content_example"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorSchema404"
                                 }
                             }
                         }
@@ -472,8 +605,8 @@
                 }
             }
         },
-        "/profile/uploadProfilePicture":{
-            "post":{
+        "/profile/uploadProfilePicture": {
+            "post": {
                 "tags": ["Profile"],
                 "summary": "Update User Profile Picture",
                 "description": "Update User Profile Picture",
@@ -584,6 +717,117 @@
                     "password": {
                         "type": "string",
                         "example": "password"
+                    }
+                }
+            },
+
+            "article_example": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "object",
+                        "properties": {
+                            "seconds": {
+                                "type": "integer",
+                                "example": 1701363600
+                            },
+                            "nanoseconds": {
+                                "type": "integer",
+                                "example": 533000000
+                            }
+                        }
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://storage.cloud.google.com/wastewise-405907.appspot.com/users/c002bsy3201%40bangkit.academy/profilePicture.jpg"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Bryan Bernigen"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Article Title"
+                    },
+                    "content_id": {
+                        "type": "string",
+                        "example": "abc123DEF456"
+                    }
+                }
+            },
+
+            "content_example": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "url": {
+                                "type": "string",
+                                "example": "https://finance.detik.com/solusiukm/d-7066109/sulap-sampah-pantai-jadi-kerajinan-perajin-likupang-bekas-jadi-doi"
+                            },
+                            "content": {
+                                "type": "array",
+                                "example": [
+                                    {
+                                        "image": "https://akcdn.detik.net.id/community/media/visual/2023/12/01/brilian-palaes-3.jpeg?w=700&q=90",
+                                        "caption": "Foto: Andhika Prasetia/detikcom"
+                                    },
+                                    "This is the first paragraph.",
+                                    "This is the second paragraph.",
+                                    "This is the third paragraph.",
+                                    {
+                                        "image": "https://akcdn.detik.net.id/community/media/visual/2023/12/01/brilian-palaes-1.jpeg?w=800",
+                                        "caption": "Sulap Sampah Pantai Jadi Kerajinan, Perajin Likupang: Bekas Jadi 'Doi' Foto: Andhika Prasetia/detikcom"
+                                    },
+                                    "This is the fourth paragraph.",
+                                    "This is the fifth paragraph.",
+                                    "This is the sixth paragraph."
+                                ]
+                            }
+                        }
+                    }
+                }
+            },
+
+            "ErrorSchema400": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
+                    "error": {
+                        "type": "object",
+                        "properties":{
+                            "message":{
+                                "type": "string",
+                                "example": "Bad Request"
+                            }
+                        }
+                    }
+                }
+            },
+
+            "ErrorSchema404": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
+                    "error": {
+                        "type": "object",
+                        "properties":{
+                            "message":{
+                                "type": "string",
+                                "example": "Not Found"
+                            }
+                        }
                     }
                 }
             }

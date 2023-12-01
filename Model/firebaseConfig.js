@@ -7,6 +7,7 @@ const clientAccount = require("./" + process.env.FIREBASE_CLIENT_CONFIG);
 firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(adminAccount),
     storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    databaseURL: "",
 });
 
 firebaseClient.initializeApp(clientAccount);
