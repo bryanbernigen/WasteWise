@@ -899,7 +899,7 @@
                         "type": "array",
                         "items": {
                             "type": "string",
-                            "example": "6ISPyozmRoM3H5RDSqNU"
+                            "example": "compost"
                         }
                     }
                 }
@@ -910,7 +910,7 @@
                 "properties": {
                     "id":{
                         "type": "string",
-                        "example": "6ISPyozmRoM3H5RDSqNU"
+                        "example": "compost"
                     },
                     "name": {
                         "type": "string",
@@ -979,7 +979,7 @@
                         "type": "array",
                         "items": {
                             "type": "string",
-                            "example": "6ISPyozmRoM3H5RDSqNU"
+                            "example": "compost"
                         }
                     },
                     "processing": {
