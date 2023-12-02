@@ -2,6 +2,7 @@ const express = require("express");
 const authController = require("../Controller/authController");
 const articleController = require("../Controller/articleController");
 const profileController = require("../Controller/profileController");
+const wasteController = require("../Controller/wasteController");
 
 const router = express.Router();
 
@@ -20,5 +21,9 @@ router.get("/article/details/:content_id", articleController.getArticleDetails);
 router.get("/profile", profileController.getProfile);
 router.post("/profile/update", profileController.updateProfile);
 router.post("/profile/uploadProfilePicture", profileController.uploadProfilePicture);
+
+//Waste Routes
+router.get("/waste/all", wasteController.getAllWastes);
+router.get("/waste/details/:waste_id", wasteController.getWasteDetails);
 
 module.exports = router;

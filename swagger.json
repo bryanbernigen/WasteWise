@@ -340,13 +340,8 @@
                                             "example": "success"
                                         },
                                         "data": {
-                                            "type": "object",
-                                            "properties": {
-                                                "count": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                }
-                                            }
+                                            "type": "integer",
+                                            "example": 1
                                         }
                                     }
                                 }
@@ -682,6 +677,89 @@
                     }
                 }
             }
+        },
+
+        "/waste/all": {
+            "get": {
+                "tags": ["Waste"],
+                "summary": "Get All Waste",
+                "description": "Get All Waste",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "example": "success"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/waste_example"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorSchema404"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/waste/details/{waste_id}": {
+            "get": {
+                "tags": ["Waste"],
+                "summary": "Get Waste Details",
+                "description": "Get Waste Details",
+                "parameters": [
+                    {
+                        "name": "waste_id",
+                        "in": "path",
+                        "description": "Waste ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "cardboard"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/waste_processing_example"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorSchema404"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -794,6 +872,125 @@
                 }
             },
 
+            "waste_example": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "cardboard"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://storage.cloud.google.com/wastewise-405907.appspot.com/waste/cardboard.jpg"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Karton"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Karton adalah istilah umum untuk produk berbahan dasar kertas berat. Konstruksinya dapat berkisar dari kertas tebal yang dikenal sebagai kertas karton hingga papan serat bergelombang yang terbuat dari beberapa lapisan bahan. Warna karton alami dapat berkisar dari abu-abu hingga coklat muda, tergantung pada produk spesifiknya; pewarna, pigmen, percetakan, dan pelapis tersedia."
+                    },
+                    "is_organic": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "processing_id": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "6ISPyozmRoM3H5RDSqNU"
+                        }
+                    }
+                }
+            },
+
+            "processing_example": {
+                "type": "object",
+                "properties": {
+                    "id":{
+                        "type": "string",
+                        "example": "6ISPyozmRoM3H5RDSqNU"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Membuat Kompos"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Kompos adalah pupuk organik yang terbuat dari sampah organik yang difermentasi oleh mikroorganisme. Kompos dapat dibuat dari berbagai jenis sampah organik, seperti sisa makanan, daun, rumput, dan lain-lain."
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://storage.cloud.google.com/wastewise-405907.appspot.com/waste/processing/compost.jpg"
+                    },
+                    "reference": {
+                        "type": "string",
+                        "example": "https://dlh.semarangkota.go.id/5-cara-pembuatan-pupuk-kompos-dari-sampah-bekas-yang-mudah/"
+                    },
+                    "method": {
+                        "type": "array",
+                        "example": [
+                            {
+                                "title": "Proses Pencacahan",
+                                "description": "Cacah sampah organik agar sampah organik tersebut menjadi lebih lembut. Buatlah sampah organik menjadi berukuran 1 sampai dengan 2 cm."
+                            },
+                            {
+                                "title": "Proses Pendiaman",
+                                "description": "Agar bisa menjadi pupuk kompos, Anda harus mendiamkan sampah organik yang sudah di cincang tersebut. Fungsi mendiamkan sampah organik tersebut agar terjadi pembusukan. Mempercepat proses pembusukan Anda bisa menggunakan larutan EM4 atau bisa juga menunggu sampah tersebut membusuk sendiri namun prosesnya lumayan lama."
+                            },
+                            {
+                                "title": "Tutup Rapat",
+                                "description": "Diamkan pupuk tersebut selama 2 minggu lamanya agar pembusukan sempurna. Selama 2 minggu tersebut Anda harus mengaduk pupuk di dalam ember selama 3 hari sekali. Jangan terlalu sering mengaduk dan jangan terlalu jarang. Waktu maksimal untuk pengadukan adalah 3 hari sekali. Selama 2 minggu tersebut akan dua jenis pupuk kompos yang dihasilkan yaitu padat dan cair."
+                            },
+                            {
+                                "title": "Gunakan Kompos",
+                                "description": "Selamat, Anda berhasil mengolah sampah organik menjadi kompos. Agar berfungsi maksimal, Anda harus tahu bagaimana cara menggunakan pupuk tersebut untuk penanaman tumbuhan. Khusus pupuk yang padat harus dikeringkan terlebih dahulu dengan cara di angin-anginkan dan yang cair bisa langsung diaplikasikan di media tanam dengan catatan harus dicampurkan dengan air kapur sirih supaya tidak berbau, perbandingannya adalah 1:5 begitu pula dengan yang pupuk padat."
+                            }
+                        ]
+                    }
+                }
+            },
+
+            "waste_processing_example": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "cardboard"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://storage.cloud.google.com/wastewise-405907.appspot.com/waste/cardboard.jpg"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Karton"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Karton adalah istilah umum untuk produk berbahan dasar kertas berat. Konstruksinya dapat berkisar dari kertas tebal yang dikenal sebagai kertas karton hingga papan serat bergelombang yang terbuat dari beberapa lapisan bahan. Warna karton alami dapat berkisar dari abu-abu hingga coklat muda, tergantung pada produk spesifiknya; pewarna, pigmen, percetakan, dan pelapis tersedia."
+                    },
+                    "is_organic": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "processing_id": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "6ISPyozmRoM3H5RDSqNU"
+                        }
+                    },
+                    "processing": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/processing_example"
+                        }
+                    }
+                }
+            },
+
             "ErrorSchema400": {
                 "type": "object",
                 "properties": {
@@ -803,8 +1000,8 @@
                     },
                     "error": {
                         "type": "object",
-                        "properties":{
-                            "message":{
+                        "properties": {
+                            "message": {
                                 "type": "string",
                                 "example": "Bad Request"
                             }
@@ -822,8 +1019,8 @@
                     },
                     "error": {
                         "type": "object",
-                        "properties":{
-                            "message":{
+                        "properties": {
+                            "message": {
                                 "type": "string",
                                 "example": "Not Found"
                             }
