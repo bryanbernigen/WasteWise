@@ -122,7 +122,7 @@ const uploadProfilePicture = async (req, res) => {
                 //Update the user's profile picture
                 let emailRef = decodedToken.email.replace("@", "%40");
                 firebaseAdmin.auth().updateUser(decodedToken.uid, {
-                    photoURL: "https://storage.cloud.google.com/"+process.env.FIREBASE_STORAGE_BUCKET+"/users/"+emailRef+"/profilePicture.jpg",
+                    photoURL: "https://storage.googleapis.com/"+process.env.FIREBASE_STORAGE_BUCKET+"/users/"+emailRef+"/profilePicture.jpg",
                 });
             });
 
